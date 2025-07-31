@@ -1,19 +1,29 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent, MatChipListbox, MatChipListboxChange } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { COMMA, ENTER } from "@angular/cdk/keycodes";
+import {
+  MatChipInputEvent,
+  MatChipListbox,
+  MatChipListboxChange,
+} from "@angular/material/chips";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { Category } from "src/app/models/categories.model";
 
-export interface Category {
-  name: string;
-}
+// export interface Category {
+//   name: string;
+// }
 
 @Component({
-  selector: 'app-chip',
-  templateUrl: './chip.component.html',
-  styleUrls: ['./chip.component.scss'],
+  selector: "app-chip",
+  templateUrl: "./chip.component.html",
+  styleUrls: ["./chip.component.scss"],
 })
 export class ChipComponent implements OnInit {
-
   constructor() {}
 
   ngOnInit(): void {}
@@ -32,7 +42,7 @@ export class ChipComponent implements OnInit {
   }
 
   add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = (event.value || "").trim();
 
     // Add our fruit
     if (value) {

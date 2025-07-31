@@ -1,27 +1,28 @@
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { ENTER, COMMA } from "@angular/cdk/keycodes";
 import {
   Component,
   EventEmitter,
   OnInit,
   Output,
   ViewChild,
-} from '@angular/core';
+} from "@angular/core";
 import {
   UntypedFormGroup,
   UntypedFormControl,
   Validators,
-} from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MatAccordion } from '@angular/material/expansion';
-import { Category } from 'src/app/components/chip/chip.component';
-import { Destination } from 'src/app/models/destinations.model';
-import { DestinationService } from 'src/app/services/destinations.service';
-import { environment  } from 'src/environments/environment';
+} from "@angular/forms";
+import { MatChipInputEvent } from "@angular/material/chips";
+import { MatAccordion } from "@angular/material/expansion";
+import { Category } from "src/app/models/categories.model";
+// import { Category } from 'src/app/components/chip/chip.component';
+import { Destination } from "src/app/models/destinations.model";
+import { DestinationService } from "src/app/services/destinations.service";
+import { environment } from "src/environments/environment";
 
 @Component({
-  selector: 'app-admin-dest',
-  templateUrl: './admin-dest.component.html',
-  styleUrls: ['./admin-dest.component.scss'],
+  selector: "app-admin-dest",
+  templateUrl: "./admin-dest.component.html",
+  styleUrls: ["./admin-dest.component.scss"],
 })
 export class AdminDestComponent implements OnInit {
   DestinationService: any;
@@ -35,7 +36,7 @@ export class AdminDestComponent implements OnInit {
 
   panelOpenState = false;
 
-  @ViewChild('myaccordion')
+  @ViewChild("myaccordion")
   myPanels!: MatAccordion;
 
   openAll() {
@@ -48,11 +49,11 @@ export class AdminDestComponent implements OnInit {
 
   loadData() {
     this.destService.getAll().subscribe((data) => {
-      if ('statusCode' in data) {
+      if ("statusCode" in data) {
         this.destinations = [];
       } else {
         for (let dest of data) {
-          dest.imageURL = environment.API_URL + '/' + dest.imageURL;
+          dest.imageURL = environment.API_URL + "/" + dest.imageURL;
         }
         this.destinations = data;
       }
@@ -61,9 +62,9 @@ export class AdminDestComponent implements OnInit {
 
   destinations: Destination[] = [];
 
-  activeTab: String = 'users';
+  activeTab: String = "users";
 
-  panels: string[] = ['destinations', 'users', 'bookings'];
+  panels: string[] = ["destinations", "users", "bookings"];
 
   checkDest(panel: string) {
     if (this.activeTab == panel) {
@@ -78,10 +79,10 @@ export class AdminDestComponent implements OnInit {
   }
 
   splitCategories(cat: string[]) {
-    let categories: string = '';
+    let categories: string = "";
 
     for (let i = 0; i < cat.length; i++) {
-      categories += '[' + cat[i] + '] ';
+      categories += "[" + cat[i] + "] ";
     }
 
     return categories;
@@ -106,10 +107,10 @@ export class AdminDestComponent implements OnInit {
     });
   }
 
-  hideInput: string = 'display: none;';
-  showInput: string = 'display: block';
-  hide: string = 'display: none;';
-  show: string = 'display: block';
+  hideInput: string = "display: none;";
+  showInput: string = "display: block";
+  hide: string = "display: none;";
+  show: string = "display: block";
 
   editEvent(option: boolean) {
     if (option) {
@@ -130,10 +131,10 @@ export class AdminDestComponent implements OnInit {
   }
 
   editForm = new UntypedFormGroup({
-    cityEdit: new UntypedFormControl('', [Validators.required]),
-    countryEdit: new UntypedFormControl('', [Validators.required]),
-    descriptionEdit: new UntypedFormControl('', [Validators.maxLength(50)]),
-    reviewEdit: new UntypedFormControl('', [
+    cityEdit: new UntypedFormControl("", [Validators.required]),
+    countryEdit: new UntypedFormControl("", [Validators.required]),
+    descriptionEdit: new UntypedFormControl("", [Validators.maxLength(50)]),
+    reviewEdit: new UntypedFormControl("", [
       Validators.required,
       Validators.min(0),
       Validators.max(5),
@@ -157,20 +158,20 @@ export class AdminDestComponent implements OnInit {
   }
 
   destinationForm = new UntypedFormGroup({
-    city: new UntypedFormControl('', [Validators.required]),
-    country: new UntypedFormControl('', [Validators.required]),
+    city: new UntypedFormControl("", [Validators.required]),
+    country: new UntypedFormControl("", [Validators.required]),
     description: new UntypedFormControl(),
-    review: new UntypedFormControl('', [
+    review: new UntypedFormControl("", [
       Validators.required,
       Validators.min(0),
       Validators.max(5),
     ]),
-    image: new UntypedFormControl('/images/Destinations/'),
-    categories: new UntypedFormControl(''),
+    image: new UntypedFormControl("/images/Destinations/"),
+    categories: new UntypedFormControl(""),
   });
 
   searchForm = new UntypedFormGroup({
-    id: new UntypedFormControl('', [Validators.required]),
+    id: new UntypedFormControl("", [Validators.required]),
   });
 
   addOnBlur = true;
@@ -185,7 +186,7 @@ export class AdminDestComponent implements OnInit {
   }
 
   add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = (event.value || "").trim();
 
     // Add our fruit
     if (value) {
@@ -212,8 +213,8 @@ export class AdminDestComponent implements OnInit {
     let image = this.destinationForm.value.image;
     let categories: string[] = [];
 
-    if (image == '') {
-      image = '/images/Destinations/Default.jpg';
+    if (image == "") {
+      image = "/images/Destinations/Default.jpg";
     }
 
     this.destService
